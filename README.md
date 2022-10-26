@@ -10,7 +10,7 @@ pbmc.data = Read10X(data.dir = "C:/Users/91973/Documents/filtered_gene_bc_matric
 pbmc = CreateSeuratObject(counts = pbmc.data, min.cells = 3, min.features = 200)
 pbmc
 
-## Output of pbmc 
+#Output of pbmc 
 An object of class Seurat 
 13714 features across 2700 samples within 1 assay 
 Active assay: RNA (13714 features, 0 variable features)
@@ -18,7 +18,7 @@ Active assay: RNA (13714 features, 0 variable features)
 pbmc.data[1:50, 1:10]
 
 
-## Output of pbmc.data[1:50, 1:10]
+#Output of pbmc.data[1:50, 1:10]
 50 x 10 sparse Matrix of class "dgCMatrix"
    [[ suppressing 10 column names ‘AAACATACAACCAC-1’, ‘AAACATTGAGCTAC-1’, ‘AAACATTGATCAGC-1’ ... ]]
                                  
@@ -37,10 +37,11 @@ RP4-669L17.2  . . . . . . . . . .
 RP5-857K21.15 . . . . . . . . . .
 RP5-857K21.1  . . . . . . . . . .
 
+# Calculating PercentageFeatureSet
 pbmc[["percent.mt"]] = PercentageFeatureSet(pbmc, pattern = "^MT-")
 head(pbmc@meta.data)
 
-## Output of head(pbmc@meta.data)
+#Output of head(pbmc@meta.data)
                     orig.ident nCount_RNA nFeature_RNA percent.mt
 AAACATACAACCAC-1 SeuratProject       2419          779  3.0177759
 AAACATTGAGCTAC-1 SeuratProject       4903         1352  3.7935958
@@ -58,14 +59,15 @@ pbmc = subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.
 pbmc
 pbmc = NormalizeData(pbmc)
 
-## Output : Performing log-normalization
+#Output : Performing log-normalization
 0%   10   20   30   40   50   60   70   80   90   100%
 [----|----|----|----|----|----|----|----|----|----|
 **************************************************|
 
+# Find Variable Features of pbmc data
 pbmc = FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
 
-## Outpput : 
+#Outpput : 
 Calculating gene variances
 0%   10   20   30   40   50   60   70   80   90   100%
 [----|----|----|----|----|----|----|----|----|----|
@@ -75,12 +77,13 @@ Calculating feature variances of standardized and clipped values
 [----|----|----|----|----|----|----|----|----|----|
 **************************************************|
 
+# Scale data 
 all.genes = rownames(pbmc)
 pbmc = ScaleData(pbmc, features = all.genes)
 
 pbmc@assays$RNA@scale.data[1:50, 1:5]
 
-## Output :- 
+#Output :- 
 AAACATACAACCAC-1 AAACATTGAGCTAC-1 AAACATTGATCAGC-1 AAACCGTGCTTCCG-1 AAACCGTGTATGCG-1
 AL627309.1         -0.05812316      -0.05812316      -0.05812316      -0.05812316      -0.05812316
 AP006222.2         -0.03357571      -0.03357571      -0.03357571      -0.03357571      -0.03357571
@@ -95,8 +98,9 @@ HES4               -0.23376818      -0.23376818      -0.23376818      -0.2337681
 RP11-54O7.11       -0.03768905      -0.03768905      -0.03768905      -0.03768905      -0.03768905
 ISG15              -0.83530282      -0.83530282       0.39223510       2.21976210      -0.83530282
 
+# Run PCA using variable features of pbmc data
 pbmc = RunPCA(pbmc, features = VariableFeatures(object = pbmc))
-## Output :- 
+#Output :- 
 PC_ 1 
 Positive:  CST3, TYROBP, LST1, AIF1, FTL, FTH1, LYZ, FCN1, S100A9, TYMP 
 	   FCER1G, CFD, LGALS1, S100A8, CTSS, LGALS2, SERPINA1, IFITM3, SPI1, CFP 
@@ -112,14 +116,16 @@ Negative:  NKG7, PRF1, CST7, GZMB, GZMA, FGFBP2, CTSW, GNLY, B2M, SPON2
 	   CCL4, GZMH, FCGR3A, CCL5, CD247, XCL2, CLIC3, AKR1C3, SRGN, HOPX 
 	   TTC38, APMAP, CTSC, S100A4, IGFBP7, ANXA1, ID2, IL32, XCL1, RHOC
 
+# Find K Neighghbor of pbmc data
 pbmc = FindNeighbors(pbmc, dims = 1:10)
 
 # Plotting a dimheatmap
 DimHeatmap(pbmc, dims = 1:15, cells = 500, balanced = TRUE)
 
+# Find Clusters in PBMC data
 pbmc = FindClusters(pbmc, resolution = 0.5)
 
-## Output :- 
+#Output :- 
 Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
 
 Number of nodes: 2638
@@ -143,9 +149,10 @@ AAACCGTGCTTCCG-1 SeuratProject       2639          960  1.7430845               
 AAACCGTGTATGCG-1 SeuratProject        980          521  1.2244898               6               6
 AAACGCACTGGTAC-1 SeuratProject       2163          781  1.6643551               2               2
 
+# Use method UMAP 
 pbmc = RunUMAP(pbmc, dims = 1:10)
 
-## Output :- 
+#Output :- 
 13:42:23 UMAP embedding parameters a = 0.9922 b = 1.112
 13:42:23 Read 2638 rows and found 10 numeric columns
 13:42:23 Using Annoy for neighbor search, n_neighbors = 30
@@ -165,13 +172,16 @@ Using method 'umap'
 **************************************************|
 13:42:32 Optimization finished
 
+# Plot a Dimplot of calculated UMAP
 DimPlot(pbmc, reduction = "umap", label = T)
 ![dimplot2](https://user-images.githubusercontent.com/110582335/197971858-a7f48fbe-7c1f-46a6-a89b-e3add25daa6e.png)
 
+# To find all markers
 pbmc.markers = FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
 
 head(pbmc.markers)
-## head(pbmc.markers)
+
+#head(pbmc.markers)
               p_val avg_log2FC pct.1 pct.2     p_val_adj cluster  gene
 RPS12 1.806317e-144  0.7350248 1.000 0.991 2.477183e-140       0 RPS12
 RPS6  7.135900e-142  0.6798622 1.000 0.995 9.786173e-138       0  RPS6
@@ -180,9 +190,11 @@ RPL32 4.229582e-136  0.6115515 0.999 0.995 5.800448e-132       0 RPL32
 RPS14 1.799019e-130  0.6199183 1.000 0.994 2.467175e-126       0 RPS14
 RPS25 5.507298e-123  0.7442491 0.997 0.975 7.552709e-119       0 RPS25
 
+# Assign Markers to pbmc clustered data
+
 a = pbmc.markers %>% group_by(cluster) %>% top_n(n = 2, wt = avg_log2FC)
 a
-## a
+#a
 #A tibble: 18 x 7
 #Groups:   cluster [9]
        p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene    
@@ -206,13 +218,14 @@ a
 17 7.73e-200       7.24 1     0.01  1.06e-195 8       PF4     
 18 3.68e-110       8.58 1     0.024 5.05e-106 8       PPBP  
 
-
+# Print genes 
 genes = a %>% pull(gene)
 genes
-## genes
+#genes
  [1] "LDHB"     "CCR7"     "S100A9"   "S100A8"   "LTB"      "AQP3"     "CD79A"    "TCL1A"    "CCL5"     "GZMK"    
 [11] "FCGR3A"   "LST1"     "GZMB"     "GNLY"     "FCER1A"   "HLA-DPB1" "PF4"      "PPBP"    
-   
+
+#Plot a feature plot	
 FeaturePlot(pbmc, features = genes[1:2])
 ![featureplot](https://user-images.githubusercontent.com/110582335/197972458-bee10a3b-9cb4-4ede-bc28-9b9a7af43fd1.png)
 
