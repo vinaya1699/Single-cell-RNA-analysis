@@ -42,6 +42,8 @@ pbmc = FindNeighbors(pbmc, dims = 1:10)
 
 # Plotting a dimheatmap
 DimHeatmap(pbmc, dims = 1:15, cells = 500, balanced = TRUE)
+![dimheatmap](https://user-images.githubusercontent.com/110582335/197982178-8d5bc7d4-5522-493e-a29d-dd92b93d2cd8.png)
+
 
 # Find Clusters in PBMC data
 pbmc = FindClusters(pbmc, resolution = 0.5)
