@@ -40,10 +40,10 @@ pbmc = subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.
 pbmc
 pbmc = NormalizeData(pbmc)
 
-# Find Variable Features of pbmc data
+# To calculate a subset of features that exhibit high cell-to-cell variation in the dataset 
 pbmc = FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
 
-# To identify the 10 most highly variable genes
+#To identify the 10 most highly variable genes
 top10 = head(VariableFeatures(pbmc), 10)
 top10
 
