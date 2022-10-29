@@ -83,7 +83,8 @@ pbmc = RunUMAP(pbmc, dims = 1:10)
 # Plot a Dimplot of calculated UMAP
 DimPlot(pbmc, reduction = "umap", label = T)
 ![dimplot1](https://user-images.githubusercontent.com/110582335/198817020-50bc7ec2-aa61-41c7-bb27-3d76e5b12daf.png)
-Using UMAP method (K - N algorithm ) clusters are created which represent clusters of cells with features that are very similar to each other  
+
+#Using UMAP method (K - N algorithm ) clusters are created which represent clusters of cells with features that are very similar to each other  
 
 # To find all markers
 pbmc.markers = FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
