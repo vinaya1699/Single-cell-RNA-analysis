@@ -5,9 +5,9 @@ library(patchwork)
 library(dplyr)
 
 # Input Data
-pbmc.data = Read10X(data.dir = "C:/Users/91973/Documents/filtered_gene_bc_matrices/hg19/")
+pbmc_data = Read10X(data.dir = "C:/Users/91973/Documents/filtered_gene/rms/")
 
-pbmc = CreateSeuratObject(counts = pbmc.data, min.cells = 3, min.features = 200)
+pbmc = CreateSeuratObject(counts = pbmc_data, min.cells = 3, min.features = 200)
 pbmc
 
 pbmc.data[1:50, 1:10]
@@ -18,7 +18,8 @@ head(pbmc@meta.data)
 
 # Vlnplot of pbmc data
 VlnPlot(pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
-![vlnplot](https://user-images.githubusercontent.com/110582335/197968954-dace2fa5-f1d6-4f3f-afe4-0fe3b4b72a9a.png)
+![vlnplot](https://user-images.githubusercontent.com/110582335/198816889-a9f44260-d1e7-419e-bd9d-34f3845b0d48.png)
+
 
 # Creating a subset of pbmc whereis nFeature_RNA is between 200 to 2500
 pbmc = subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
@@ -42,7 +43,8 @@ pbmc = FindNeighbors(pbmc, dims = 1:10)
 
 # Plotting a dimheatmap
 DimHeatmap(pbmc, dims = 1:15, cells = 500, balanced = TRUE)
-![dimheatmap](https://user-images.githubusercontent.com/110582335/197982178-8d5bc7d4-5522-493e-a29d-dd92b93d2cd8.png)
+![dimPlot](https://user-images.githubusercontent.com/110582335/198816974-77e065ad-ad68-4b77-8aaa-0aa6943060e7.png)
+
 
 
 # Find Clusters in PBMC data
@@ -55,7 +57,8 @@ pbmc = RunUMAP(pbmc, dims = 1:10)
 
 # Plot a Dimplot of calculated UMAP
 DimPlot(pbmc, reduction = "umap", label = T)
-![dimplot2](https://user-images.githubusercontent.com/110582335/197971858-a7f48fbe-7c1f-46a6-a89b-e3add25daa6e.png)
+![dimplot1](https://user-images.githubusercontent.com/110582335/198817020-50bc7ec2-aa61-41c7-bb27-3d76e5b12daf.png)
+
 
 # To find all markers
 pbmc.markers = FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
@@ -73,5 +76,5 @@ genes
 
 #Plot a feature plot	
 FeaturePlot(pbmc, features = genes[1:2])
-![featureplot](https://user-images.githubusercontent.com/110582335/197972458-bee10a3b-9cb4-4ede-bc28-9b9a7af43fd1.png)
+![dimplot2](https://user-images.githubusercontent.com/110582335/198817099-a36e892b-1967-426b-9153-780f2ff46530.png)
 
