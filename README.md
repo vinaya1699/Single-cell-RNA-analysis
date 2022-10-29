@@ -33,7 +33,7 @@ plot2 = FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
 plot2
 ![featureplot2](https://user-images.githubusercontent.com/110582335/198821171-e3db500d-6730-4446-aa09-bbbe0180d36d.png)
 
-#The number 0 and 0.94 above each plot denotes the correlations between x-axis and y-axis
+#The number 0 and 0.95 above each plot denotes the correlations between x-axis and y-axis
 
 # Creating a subset of pbmc whereis nFeature_RNA is between 200 to 2500
 pbmc = subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
