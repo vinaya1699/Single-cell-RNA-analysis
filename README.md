@@ -47,6 +47,7 @@ pbmc = FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
 
 top10 = head(VariableFeatures(pbmc), 10)
 top10
+![image](https://user-images.githubusercontent.com/110582335/198824333-05d6ab92-56a9-431d-89bb-1e99c2608be3.png)
 
 # To plot variable features with and without labels
 plot1 = VariableFeaturePlot(pbmc)
