@@ -50,7 +50,8 @@ plot1
 
 plot2 = LabelPoints(plot = plot1, points = top10, repel = TRUE)
 plot2
-![plot_without_labels](https://user-images.githubusercontent.com/110582335/198821374-79f7992b-1273-49d9-a14e-f9eea72dad28.png)
+![plot_with_labels](https://user-images.githubusercontent.com/110582335/198821772-9eb55922-8296-46b0-85e6-3872d4ef8842.png)
+
 
 
 # To scale data 
