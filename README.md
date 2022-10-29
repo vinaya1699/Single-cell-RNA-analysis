@@ -20,6 +20,15 @@ head(pbmc@meta.data)
 VlnPlot(pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ![vlnplot](https://user-images.githubusercontent.com/110582335/198816889-a9f44260-d1e7-419e-bd9d-34f3845b0d48.png)
 
+# To Find relationships between features such as percent.mt,nCount_RNA,nFeature_RNA in here.
+plot1 = FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "percent.mt")
+plot1
+![featureplot1](https://user-images.githubusercontent.com/110582335/198821164-0b5a3229-9288-40ef-8bf8-d41faed5c00b.png)
+
+plot2 = FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot2
+![featureplot2](https://user-images.githubusercontent.com/110582335/198821171-e3db500d-6730-4446-aa09-bbbe0180d36d.png)
+
 
 # Creating a subset of pbmc whereis nFeature_RNA is between 200 to 2500
 pbmc = subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
@@ -29,7 +38,22 @@ pbmc = NormalizeData(pbmc)
 # Find Variable Features of pbmc data
 pbmc = FindVariableFeatures(pbmc, selection.method = "vst", nfeatures = 2000)
 
-# Scale data 
+# To identify the 10 most highly variable genes
+top10 = head(VariableFeatures(pbmc), 10)
+top10
+
+# To plot variable features with and without labels
+plot1 = VariableFeaturePlot(pbmc)
+plot1
+![plot_without_labels](https://user-images.githubusercontent.com/110582335/198821355-27b0a0dc-ba44-4518-b4c4-b32549da5bab.png)
+
+
+plot2 = LabelPoints(plot = plot1, points = top10, repel = TRUE)
+plot2
+![plot_without_labels](https://user-images.githubusercontent.com/110582335/198821374-79f7992b-1273-49d9-a14e-f9eea72dad28.png)
+
+
+# To scale data 
 all.genes = rownames(pbmc)
 pbmc = ScaleData(pbmc, features = all.genes)
 
