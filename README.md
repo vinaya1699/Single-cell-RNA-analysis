@@ -70,7 +70,7 @@ plot2 = LabelPoints(plot = plot1, points = top10, repel = TRUE)
 plot2
 ![plot_with_labels](https://user-images.githubusercontent.com/110582335/198821772-9eb55922-8296-46b0-85e6-3872d4ef8842.png)
 
-
+This plot represent the the top 10 highly variable genes .
 
 # To scale data 
 all.genes = rownames(pbmc)
