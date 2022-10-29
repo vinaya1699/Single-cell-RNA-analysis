@@ -89,6 +89,10 @@ DimHeatmap(pbmc, dims = 1:15, cells = 500, balanced = TRUE)
 ![dimPlot](https://user-images.githubusercontent.com/110582335/198816974-77e065ad-ad68-4b77-8aaa-0aa6943060e7.png)
 
 DimHeatmap() allows for easy exploration of the primary sources of heterogeneity in a dataset, and can be useful when trying to decide which PCs to include for further analyses. Both cells and features are ordered according to their PCA scores. Setting cells to a number plots the ‘extreme’ cells on both ends of the spectrum, which dramatically speeds plotting for large datasets. Though clearly a supervised analysis, we find this to be a valuable tool for exploring correlated feature sets.
+ElbowPlot(object = pbmc)
+![image](https://user-images.githubusercontent.com/110582335/198825267-330da29c-1623-4f77-8e8d-cb7240242ce9.png)
+
+Elbow starts appearing by pc7-10 . So it indicates that first 10 PCs are acceptable as majority of true signal is captured in the first 10 PCs . 
 
 # Find Clusters in PBMC data
 pbmc = FindClusters(pbmc, resolution = 0.5)
