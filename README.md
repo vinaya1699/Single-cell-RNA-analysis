@@ -12,13 +12,17 @@ pbmc
 
 pbmc.data[1:50, 1:10]
 
-# Calculating PercentageFeatureSet
+# forming set of all genes starting with MT- as a set of mitochondrial genes
 pbmc[["percent.mt"]] = PercentageFeatureSet(pbmc, pattern = "^MT-")
-head(pbmc@meta.data)
+#The number of unique genes and total molecules are automatically calculated and are stored in the object meta data.
+head(pbmc@meta.data)   
 
 # Vlnplot of pbmc data
 VlnPlot(pbmc, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
 ![vlnplot](https://user-images.githubusercontent.com/110582335/198816889-a9f44260-d1e7-419e-bd9d-34f3845b0d48.png)
+#nFeature_RNA is the number of genes detected in each cell. 
+#nCount_RNA is the total number of gene detected within a cell. 
+#And each dot in the following plots represents a cell
 
 # To Find relationships between features such as percent.mt,nCount_RNA,nFeature_RNA in here.
 plot1 = FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "percent.mt")
