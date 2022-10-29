@@ -129,4 +129,5 @@ genes
 FeaturePlot(pbmc, features = genes[1:2])
 ![dimplot2](https://user-images.githubusercontent.com/110582335/198817099-a36e892b-1967-426b-9153-780f2ff46530.png)
 # Interpretation :-
+Cell type identification based on single-cell RNA sequencing involves partitioning the data into “clusters” of single cells . Based on this , 2 clusters were created .Based on thaose clusters ,
 MYO16 and KCTD16 are highly expressed genes in above single-cell RNA data .
